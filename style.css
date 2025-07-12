@@ -26,3 +26,10 @@ body {
   background-color: var(--dark-gray);
   color: var(--white);
 }
+
+th,
+td {
+  border: 1px solid white;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
