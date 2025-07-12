@@ -1,4 +1,15 @@
-const library = [];
+const library = [
+    {
+        title: 'The Hobbit',
+        author: 'J.R. Tolkien',
+        pageCount: 251,
+    },
+    {
+        title: 'The Lord of The Rings',
+        author: 'Same Guy',
+        pageCount: 413,
+    },
+];
 
 function Book(title, author, pageCount) {
 
