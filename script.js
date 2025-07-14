@@ -30,4 +30,27 @@ function addBookToLibrary(title, author, pageCount) {
 
 const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
+
+    addBooks(books) {
+        for (const book of books) {
+            this.addBook(book);
+        }
+    },
+
+    addBook(book) {
+        const row = document.createElement('tr');
+
+        const title = document.createElement('th');
+        title.textContent = book.title;
+        title.scope = 'row';
+
+        const author = document.createElement('td');
+        author.textContent = book.author;
+
+        const pageCount = document.createElement('td');
+        pageCount.textContent = book.pageCount;
+
+        row.append(title, author, pageCount);
+        this.tbody.append(row);
+    },
 };
