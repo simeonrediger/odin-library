@@ -54,3 +54,5 @@ const libraryDisplay = {
         this.tbody.append(row);
     },
 };
+
+libraryDisplay.addBooks(library);
