@@ -27,3 +27,7 @@ function addBookToLibrary(title, author, pageCount) {
     const book = new Book(title, author, pageCount);
     library.push(book);
 }
+
+const libraryDisplay = {
+    tbody: document.querySelector('#book-table-data'),
+};
