@@ -11,7 +11,7 @@ const library = [
     },
 ];
 
-function Book(title, author, pageCount) {
+function Book(title, author, pageCount, read) {
 
     if (!new.target) {
         throw Error('Constructor must be invoked with the "new" keyword.');
@@ -21,10 +21,11 @@ function Book(title, author, pageCount) {
     this.title = title;
     this.author = author;
     this.pageCount = pageCount;
+    this.read = read;
 }
 
-function addBookToLibrary(title, author, pageCount) {
-    const book = new Book(title, author, pageCount);
+function addBookToLibrary(title, author, pageCount, read) {
+    const book = new Book(title, author, pageCount, read);
     library.push(book);
 }
 
