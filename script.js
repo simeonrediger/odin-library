@@ -31,12 +31,6 @@ function addBookToLibrary(title, author, pageCount) {
 const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
 
-    addBooks(books) {
-        for (const book of books) {
-            this.addBook(book);
-        }
-    },
-
     addBook(book) {
         const row = document.createElement('tr');
 
@@ -55,4 +49,4 @@ const libraryDisplay = {
     },
 };
 
-libraryDisplay.addBooks(library);
+library.forEach(book => libraryDisplay.addBook(book));
