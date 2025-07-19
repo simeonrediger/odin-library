@@ -22,6 +22,8 @@ const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
 
     addBooks(books) {
+        this.tbody.innerHTML = '';
+
         for (const book of books) {
             this.addBook(book);
         }
@@ -48,6 +50,10 @@ const libraryDisplay = {
     },
 };
 
+function syncLibraryAndDisplay() {
+    libraryDisplay.addBooks(library);
+}
+
 document.querySelector('#new-book-button').addEventListener('click', () => {
     document.querySelector('#new-book-modal').showModal();
 });
@@ -56,4 +62,4 @@ addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
 addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
 addBookToLibrary('The Odyssey', 'Home', 592);
 
-libraryDisplay.addBooks(library);
+syncLibraryAndDisplay();
