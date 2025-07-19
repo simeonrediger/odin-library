@@ -58,6 +58,20 @@ document.querySelector('#new-book-button').addEventListener('click', () => {
     document.querySelector('#new-book-modal').showModal();
 });
 
+document.querySelector('#new-book-form').addEventListener('submit', event => {
+    const formData = new FormData(event.target);
+    const newBook = Object.fromEntries(formData.entries());
+
+    addBookToLibrary(
+        newBook.title,
+        newBook.author,
+        newBook.pageCount,
+        newBook.isRead
+    );
+
+    syncLibraryAndDisplay();
+});
+
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
 addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
 addBookToLibrary('The Odyssey', 'Home', 592);
