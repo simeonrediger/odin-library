@@ -45,7 +45,18 @@ const libraryDisplay = {
         const isRead = document.createElement('td');
         isRead.textContent = book.isRead;
 
-        row.append(title, author, pageCount, isRead);
+        const deleteCell = document.createElement('td');
+        const deleteButton = document.createElement('button');
+        const deleteIcon = document.createElement('img');
+
+        deleteButton.classList.add('delete-button');
+        deleteIcon.classList.add('delete-icon');
+        deleteIcon.src = 'images/trash-can.svg';
+
+        deleteButton.append(deleteIcon);
+        deleteCell.append(deleteButton);
+
+        row.append(title, author, pageCount, isRead, deleteCell);
         this.tbody.append(row);
     },
 };
