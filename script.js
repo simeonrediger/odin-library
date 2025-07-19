@@ -18,6 +18,14 @@ function addBookToLibrary(title, author, pageCount, isRead) {
     library.push(book);
 }
 
+function removeBookFromLibrary(targetId) {
+    const targetIndex = library.findIndex(book => book.id === targetId);
+
+    if (targetIndex !== -1) {
+        library.splice(targetIndex, 1);
+    }
+}
+
 const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
 
@@ -50,6 +58,11 @@ const libraryDisplay = {
         deleteButton.classList.add('delete-button');
         deleteIcon.classList.add('delete-icon');
         deleteIcon.src = 'images/trash-can.svg';
+
+        deleteButton.addEventListener('click', event => {
+            removeBookFromLibrary(book.id);
+            this.syncWithLibrary();
+        });
 
         deleteButton.append(deleteIcon);
         deleteCell.append(deleteButton);
