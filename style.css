@@ -18,8 +18,10 @@ table {
 
 html {
   --light-blue: #0091ff;
+  --black: #000;
   --dark-gray: #181818;
-  --white: #cccccc;
+  --light-gray: #555;
+  --white: #ccc;
 }
 
 body {
