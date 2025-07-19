@@ -88,7 +88,7 @@ dialog::backdrop {
 
 th,
 td {
-  border: 1px solid white;
+  border: 1px solid var(--light-gray);
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
