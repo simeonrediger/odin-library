@@ -1,15 +1,4 @@
-const library = [
-    {
-        title: 'The Hobbit',
-        author: 'J.R. Tolkien',
-        pageCount: 251,
-    },
-    {
-        title: 'The Lord of The Rings',
-        author: 'Same Guy',
-        pageCount: 413,
-    },
-];
+const library = [];
 
 function Book(title, author, pageCount, read) {
 
@@ -53,5 +42,8 @@ const libraryDisplay = {
 document.querySelector('#new-book-button').addEventListener('click', () => {
     document.querySelector('#new-book-modal').showModal();
 });
+
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 413);
+addBookToLibrary('The Lord of the Rings', 'Same Guy', 251);
 
 library.forEach(book => libraryDisplay.addBook(book));
