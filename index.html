@@ -10,6 +10,31 @@
   </head>
 
   <body>
+    <h1>Library Catalog</h1>
+    <button id='new-book-button' type='button'>New book</button>
+    <dialog id='new-book-modal'>
+      <div class='modal-content'>
+        <form id='new-book-form' method='dialog'>
+          <h2 class='modal-title'>New book entry</h2>
+          <div class='grid-container'>
+            <label for='new-book-title'>Title</label>
+            <input type='text' id='new-book-title' name='title' required>
+
+            <label for='new-book-author'>Author</label>
+            <input type='text' id='new-book-author' name='author' required>
+
+            <label for='new-book-page-count'>Pages</label>
+            <input type='number' id='new-book-page-count' name='pageCount'
+              inputmode='numeric' required
+            >
+
+            <label for='new-book-read'>Read?</label>
+            <input type='checkbox' id='new-book-read'>
+            <button type='submit'>Add book</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
     <table>
       <thead>
         <th scope='col'>Title</th>

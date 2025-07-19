@@ -50,4 +50,8 @@ const libraryDisplay = {
     },
 };
 
+document.querySelector('#new-book-button').addEventListener('click', () => {
+    document.querySelector('#new-book-modal').showModal();
+});
+
 library.forEach(book => libraryDisplay.addBook(book));
