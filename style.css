@@ -93,23 +93,17 @@ td {
   text-align: left;
 }
 
-tr:has(.delete-button) {
-  position: relative;
+tr:has(.hover-button):hover td:has(.hover-button) {
+  opacity: 1;
 }
 
-tr:has(.delete-button):hover td:has(.delete-button) {
-  visibility: visible;
-}
-
-td:has(.delete-button) {
+td:has(.hover-button) {
   border: none;
   height: 100%;
-  visibility: hidden;
-  position: absolute;
+  opacity: 0;
 }
 
-.delete-button {
-  background-color: #600;
+.hover-button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -120,11 +114,26 @@ td:has(.delete-button) {
   align-items: center;
 }
 
-.delete-icon {
-  height: 100%;
+.delete-button {
+  background-color: #600;
+}
 
-  filter:  /* hack to color the white SVG image red */
-    invert(20%)
-    sepia(100%)
-    saturate(10000%);
+.read-toggle-button {
+  background-color: #ca0;
+}
+
+.button-icon {
+  height: 100%;
+}
+
+.delete-icon {
+  filter:
+    /* hack to color the white SVG image red */
+    invert(20%) sepia(100%) saturate(10000%);
+}
+
+.read-toggle-icon {
+  filter:
+    /* hack to color the white SVG image black */
+    invert(100%);
 }

@@ -13,6 +13,10 @@ function Book(title, author, pageCount, isRead = false) {
     this.isRead = isRead;
 }
 
+Book.prototype.toggleReadStatus = function() {
+    this.isRead = !this.isRead;
+}
+
 function addBookToLibrary(title, author, pageCount, isRead) {
     const book = new Book(title, author, pageCount, isRead);
     library.push(book);
@@ -52,25 +56,67 @@ const libraryDisplay = {
         const isRead = document.createElement('td');
         isRead.textContent = book.isRead;
 
+        const readToggleCell = this.createReadToggleCell();
+        const deleteCell = this.createDeleteCell();
+
+        row.append(
+            title,
+            author,
+            pageCount,
+            isRead,
+            readToggleCell,
+            deleteCell,
+        );
+
+        this.tbody.append(row);
+    },
+
+    createReadToggleCell() {
+        const readToggleCell = document.createElement('td');
+        const readToggleButton = document.createElement('button');
+        const readToggleIcon = document.createElement('img');
+
+        readToggleButton.classList.add('hover-button', 'read-toggle-button');
+        readToggleButton.addEventListener(
+            'click',
+            this.handleReadToggleClick.bind(this)
+        );
+
+        readToggleIcon.classList.add('button-icon', 'read-toggle-icon');
+        readToggleIcon.src = 'images/bookmark-check.svg';
+
+        readToggleButton.append(readToggleIcon);
+        readToggleCell.append(readToggleButton);
+        return readToggleCell;
+    },
+
+    createDeleteCell() {
         const deleteCell = document.createElement('td');
         const deleteButton = document.createElement('button');
         const deleteIcon = document.createElement('img');
 
-        deleteButton.classList.add('delete-button');
+        deleteButton.classList.add('hover-button', 'delete-button');
         deleteButton.addEventListener('click', this.handleDeleteClick);
-        deleteIcon.classList.add('delete-icon');
+        deleteIcon.classList.add('button-icon', 'delete-icon');
         deleteIcon.src = 'images/trash-can.svg';
 
         deleteButton.append(deleteIcon);
         deleteCell.append(deleteButton);
-
-        row.append(title, author, pageCount, isRead, deleteCell);
-        this.tbody.append(row);
+        return deleteCell;
     },
 
     syncWithLibrary() {
         this.tbody.innerHTML = '';
         this.addBooks(library);
+    },
+
+    handleReadToggleClick(event) {
+        const readToggleButton = event.currentTarget;
+        const targetRow = readToggleButton.parentNode.parentNode;
+        const targetBookId = targetRow.dataset.id;
+        const targetBook = library.find(book => book.id === targetBookId);
+        targetBook.toggleReadStatus();
+        this.syncWithLibrary();
     },
 
     handleDeleteClick(event) {
