@@ -59,6 +59,11 @@ const libraryDisplay = {
         row.append(title, author, pageCount, isRead, deleteCell);
         this.tbody.append(row);
     },
+
+    syncWithLibrary() {
+        this.tbody.innerHTML = '';
+        this.addBooks(library);
+    }
 };
 
 function syncLibraryAndDisplay() {
@@ -80,11 +85,11 @@ document.querySelector('#new-book-form').addEventListener('submit', event => {
         newBook.isRead
     );
 
-    syncLibraryAndDisplay();
+    libraryDisplay.syncWithLibrary();
 });
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
 addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
 addBookToLibrary('The Odyssey', 'Home', 592);
 
-syncLibraryAndDisplay();
+libraryDisplay.syncWithLibrary();
