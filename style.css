@@ -93,6 +93,21 @@ td {
   text-align: left;
 }
 
+tr:has(.delete-button) {
+  position: relative;
+}
+
+tr:has(.delete-button):hover td:has(.delete-button) {
+  visibility: visible;
+}
+
+td:has(.delete-button) {
+  border: none;
+  height: 100%;
+  visibility: hidden;
+  position: absolute;
+}
+
 .delete-button {
   background-color: #600;
   border: none;
