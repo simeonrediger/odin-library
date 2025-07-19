@@ -49,7 +49,8 @@ document.querySelector('#new-book-button').addEventListener('click', () => {
     document.querySelector('#new-book-modal').showModal();
 });
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 413);
-addBookToLibrary('The Lord of the Rings', 'Same Guy', 251);
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
+addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
+addBookToLibrary('The Odyssey', 'Home', 592);
 
 libraryDisplay.addBooks(library);
