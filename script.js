@@ -37,6 +37,7 @@ const libraryDisplay = {
 
     addBook(book) {
         const row = document.createElement('tr');
+        row.dataset.id = book.id;
 
         const title = document.createElement('th');
         title.textContent = book.title;
@@ -56,13 +57,9 @@ const libraryDisplay = {
         const deleteIcon = document.createElement('img');
 
         deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', this.handleDeleteClick);
         deleteIcon.classList.add('delete-icon');
         deleteIcon.src = 'images/trash-can.svg';
-
-        deleteButton.addEventListener('click', event => {
-            removeBookFromLibrary(book.id);
-            this.syncWithLibrary();
-        });
 
         deleteButton.append(deleteIcon);
         deleteCell.append(deleteButton);
@@ -74,7 +71,15 @@ const libraryDisplay = {
     syncWithLibrary() {
         this.tbody.innerHTML = '';
         this.addBooks(library);
-    }
+    },
+
+    handleDeleteClick(event) {
+        const deleteButton = event.currentTarget;
+        const targetRow = deleteButton.parentNode.parentNode;
+        const targetBookId = targetRow.dataset.id;
+        removeBookFromLibrary(targetBookId);
+        targetRow.remove();
+    },
 };
 
 function syncLibraryAndDisplay() {
