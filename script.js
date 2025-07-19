@@ -21,6 +21,12 @@ function addBookToLibrary(title, author, pageCount, read) {
 const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
 
+    addBooks(books) {
+        for (const book of books) {
+            this.addBook(book);
+        }
+    },
+
     addBook(book) {
         const row = document.createElement('tr');
 
@@ -46,4 +52,4 @@ document.querySelector('#new-book-button').addEventListener('click', () => {
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 413);
 addBookToLibrary('The Lord of the Rings', 'Same Guy', 251);
 
-library.forEach(book => libraryDisplay.addBook(book));
+libraryDisplay.addBooks(library);
