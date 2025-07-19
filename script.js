@@ -152,5 +152,5 @@ document.querySelector('#new-book-form').addEventListener('submit', event => {
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
 addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
-addBookToLibrary('The Odyssey', 'Home', 592);
+addBookToLibrary('The Odyssey', 'Homer', 592);
 libraryDisplay.syncWithLibrary();
