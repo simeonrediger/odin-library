@@ -22,8 +22,6 @@ const libraryDisplay = {
     tbody: document.querySelector('#book-table-data'),
 
     addBooks(books) {
-        this.tbody.innerHTML = '';
-
         for (const book of books) {
             this.addBook(book);
         }
