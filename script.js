@@ -82,7 +82,7 @@ document.querySelector('#new-book-form').addEventListener('submit', event => {
         newBook.title,
         newBook.author,
         newBook.pageCount,
-        newBook.isRead
+        newBook.isRead,
     );
 
     libraryDisplay.syncWithLibrary();
