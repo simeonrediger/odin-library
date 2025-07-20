@@ -54,7 +54,7 @@ const libraryDisplay = {
         pageCount.textContent = book.pageCount;
 
         const isRead = document.createElement('td');
-        isRead.textContent = book.isRead;
+        isRead.textContent = book.isRead ? 'Read' : 'Not read';
 
         const readToggleCell = this.createReadToggleCell();
         const deleteCell = this.createDeleteCell();
@@ -139,13 +139,12 @@ document.querySelector('#new-book-button').addEventListener('click', () => {
 document.querySelector('#new-book-form').addEventListener('submit', event => {
     const formData = new FormData(event.target);
     const newBook = Object.fromEntries(formData.entries());
-    console.log(newBook.isRead);
 
     addBookToLibrary(
         newBook.title,
         newBook.author,
         newBook.pageCount,
-        newBook.isRead === 'on' ? true : false,
+        Boolean(newBook.isRead),
     );
 
     libraryDisplay.syncWithLibrary();
