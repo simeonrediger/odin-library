@@ -3,7 +3,7 @@ const library = [];
 function Book(title, author, pageCount, isRead = false) {
 
     if (!new.target) {
-        throw Error('Constructor must be invoked with the "new" keyword.');
+        throw new Error('Constructor must be invoked with the "new" keyword.');
     }
 
     this.id = crypto.randomUUID();
