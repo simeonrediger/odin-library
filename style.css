@@ -93,47 +93,30 @@ td {
   text-align: left;
 }
 
-tr:has(.hover-button):hover td:has(.hover-button) {
-  opacity: 1;
+.actions {
+  text-align: center;
 }
 
-td:has(.hover-button) {
-  border: none;
-  height: 100%;
-  opacity: 0;
-}
+.action-button {
+  width: 1.5rem;
+  height: 1.5rem;
 
-.hover-button {
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  height: 100%;
+  margin-inline: 0.5rem;
+  vertical-align: middle;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .delete-button {
-  background-color: #600;
+  background-color: #800;
+  background-image: url('images/trash-can.svg');
 }
 
-.read-toggle-button {
-  background-color: #ca0;
-}
-
-.button-icon {
-  height: 100%;
-}
-
-.delete-icon {
-  filter:
-    /* hack to color the white SVG image red */
-    invert(20%) sepia(100%) saturate(10000%);
-}
-
-.read-toggle-icon {
-  filter:
-    /* hack to color the white SVG image black */
-    invert(100%);
+.toggle-status-button {
+  background-color: #543;
+  background-image: url('images/bookmark-check.svg');
 }

@@ -1,5 +1,3 @@
-const library = [];
-
 function Book(title, author, pageCount, isRead = false) {
 
     if (!new.target) {
@@ -13,144 +11,168 @@ function Book(title, author, pageCount, isRead = false) {
     this.isRead = isRead;
 }
 
-Book.prototype.toggleReadStatus = function() {
+Book.prototype.row = function() {
+    const row = document.createElement('tr');
+
+    const titleCell = document.createElement('th');
+    titleCell.classList.add('title');
+    titleCell.scope = 'row';
+
+    const authorCell = document.createElement('td');
+    const pageCountCell = document.createElement('td');
+    const statusCell = document.createElement('td');
+    const actionsCell = document.createElement('td');
+    authorCell.classList.add('author');
+    pageCountCell.classList.add('page-count');
+    statusCell.classList.add('status');
+    actionsCell.classList.add('actions');
+
+    const toggleStatusButton = document.createElement('button');
+    toggleStatusButton.classList.add('action-button');
+    const deleteButton = toggleStatusButton.cloneNode(true);
+    toggleStatusButton.classList.add('toggle-status-button');
+    deleteButton.classList.add('delete-button');
+
+    let actionDescription = 'Toggle read status';
+    toggleStatusButton.title = actionDescription;
+    toggleStatusButton.ariaLabel = actionDescription;
+
+    actionDescription = 'Delete book';
+    deleteButton.title = actionDescription;
+    deleteButton.ariaLabel = actionDescription;
+
+    actionsCell.append(toggleStatusButton, deleteButton);
+    row.append(titleCell, authorCell, pageCountCell, statusCell, actionsCell);
+    return row;
+}();
+
+Book.prototype.toRow = function() {
+    const row = this.row.cloneNode(true);
+    row.dataset.id = this.id;
+    row.querySelector('.title').textContent = this.title;
+    row.querySelector('.author').textContent = this.author;
+    row.querySelector('.page-count').textContent = this.pageCount;
+    row.querySelector('.status').textContent = (
+        getStatusDisplayFormat(this.isRead)
+    );
+
+    return row;
+}
+
+Book.prototype.toggleStatus = function () {
     this.isRead = !this.isRead;
 }
 
-function addBookToLibrary(title, author, pageCount, isRead) {
-    const book = new Book(title, author, pageCount, isRead);
-    library.push(book);
-}
-
-function removeBookFromLibrary(targetId) {
-    const targetIndex = library.findIndex(book => book.id === targetId);
-
-    if (targetIndex !== -1) {
-        library.splice(targetIndex, 1);
-    }
-}
-
-const libraryDisplay = {
+const display = {
     tbody: document.querySelector('#book-table-data'),
 
-    addBooks(books) {
-        for (const book of books) {
-            this.addBook(book);
-        }
-    },
-
-    addBook(book) {
-        const row = document.createElement('tr');
-        row.dataset.id = book.id;
-
-        const title = document.createElement('th');
-        title.textContent = book.title;
-        title.scope = 'row';
-
-        const author = document.createElement('td');
-        author.textContent = book.author;
-
-        const pageCount = document.createElement('td');
-        pageCount.textContent = book.pageCount;
-
-        const isRead = document.createElement('td');
-        isRead.textContent = book.isRead ? 'Read' : 'Not read';
-
-        const readToggleCell = this.createReadToggleCell();
-        const deleteCell = this.createDeleteCell();
-
-        row.append(
-            title,
-            author,
-            pageCount,
-            isRead,
-            readToggleCell,
-            deleteCell,
-        );
-
+    addRow(row) {
         this.tbody.append(row);
     },
 
-    createReadToggleCell() {
-        const readToggleCell = document.createElement('td');
-        const readToggleButton = document.createElement('button');
-        const readToggleIcon = document.createElement('img');
+    getRow(book) {
+        return document.querySelector(`[data-id='${book.id}']`);
+    },
 
-        readToggleButton.classList.add('hover-button', 'read-toggle-button');
-        readToggleButton.addEventListener(
-            'click',
-            this.handleReadToggleClick.bind(this)
+    toggleStatus(book) {
+        this.getRow(book).querySelector('.status').textContent = (
+            getStatusDisplayFormat(book.isRead)
         );
-
-        readToggleIcon.classList.add('button-icon', 'read-toggle-icon');
-        readToggleIcon.src = 'images/bookmark-check.svg';
-
-        readToggleButton.append(readToggleIcon);
-        readToggleCell.append(readToggleButton);
-        return readToggleCell;
     },
 
-    createDeleteCell() {
-        const deleteCell = document.createElement('td');
-        const deleteButton = document.createElement('button');
-        const deleteIcon = document.createElement('img');
-
-        deleteButton.classList.add('hover-button', 'delete-button');
-        deleteButton.addEventListener('click', this.handleDeleteClick);
-        deleteIcon.classList.add('button-icon', 'delete-icon');
-        deleteIcon.src = 'images/trash-can.svg';
-
-        deleteButton.append(deleteIcon);
-        deleteCell.append(deleteButton);
-        return deleteCell;
-    },
-
-    syncWithLibrary() {
-        this.tbody.innerHTML = '';
-        this.addBooks(library);
-    },
-
-    handleReadToggleClick(event) {
-        const readToggleButton = event.currentTarget;
-        const targetRow = readToggleButton.parentNode.parentNode;
-        const targetBookId = targetRow.dataset.id;
-        const targetBook = library.find(book => book.id === targetBookId);
-        targetBook.toggleReadStatus();
-        this.syncWithLibrary();
-    },
-
-    handleDeleteClick(event) {
-        const deleteButton = event.currentTarget;
-        const targetRow = deleteButton.parentNode.parentNode;
-        const targetBookId = targetRow.dataset.id;
-        removeBookFromLibrary(targetBookId);
-        targetRow.remove();
+    removeRow(rowIndex) {
+        this.tbody.children[rowIndex].remove();
     },
 };
 
-function syncLibraryAndDisplay() {
-    libraryDisplay.addBooks(library);
+function onAddBook(event) {
+    const formData = new FormData(event.target);
+    const book = new Book(
+        formData.get('title'),
+        formData.get('author'),
+        Number(formData.get('pageCount')),
+        Boolean(formData.get('isRead')),
+    );
+
+    library.push(book);
+    display.addRow(book.toRow());
+}
+
+function onDeleteBook(event) {
+    const bookId = getBookIdFromActionButton(event.target);
+    const bookIndex = getBookIndexFromId(bookId);
+    library.splice(bookIndex, 1);
+    display.removeRow(bookIndex);
+}
+
+function onToggleStatus(event) {
+    const bookId = getBookIdFromActionButton(event.target);
+    const bookIndex = getBookIndexFromId(bookId);
+    const book = library[bookIndex];
+    book.toggleStatus();
+    display.toggleStatus(book);
+}
+
+function getBookIdFromActionButton(actionButton) {
+    const bookRow = actionButton.parentNode.parentNode;
+    return bookRow.dataset.id;
+}
+
+function getBookIndexFromId(id) {
+    const bookIndex = library.findIndex(book => book.id === id);
+
+    if (bookIndex === -1) {
+        throw new Error(`Book ID not found: ${id}`);
+    }
+
+    return bookIndex;
+}
+
+function getStatusDisplayFormat(isRead) {
+    return isRead ? 'Read' : 'Unread';
 }
 
 document.querySelector('#new-book-button').addEventListener('click', () => {
     document.querySelector('#new-book-modal').showModal();
 });
 
-document.querySelector('#new-book-form').addEventListener('submit', event => {
-    const formData = new FormData(event.target);
-    const newBook = Object.fromEntries(formData.entries());
+document.querySelector('#new-book-form').addEventListener('submit', onAddBook);
 
-    addBookToLibrary(
-        newBook.title,
-        newBook.author,
-        newBook.pageCount,
-        Boolean(newBook.isRead),
+document.querySelector('#book-table-data').addEventListener('click', event => {
+    const toggleStatusButtonClicked = (
+        event.target.classList.contains('toggle-status-button')
     );
 
-    libraryDisplay.syncWithLibrary();
+    const deleteButtonClicked = (
+        event.target.classList.contains('delete-button')
+    );
+
+    if (toggleStatusButtonClicked) {
+        onToggleStatus(event);
+    } else if (deleteButtonClicked) {
+        onDeleteBook(event);
+    } else {
+        return;
+    }
 });
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 300);
-addBookToLibrary('The Lord of the Rings', 'Same Guy', 1178);
-addBookToLibrary('The Odyssey', 'Homer', 592);
-libraryDisplay.syncWithLibrary();
+const demo = {
+
+    addBookToLibrary(book) {
+        library.push(book);
+        display.addRow(book.toRow());
+    },
+
+    run() {
+        this.books.forEach(this.addBookToLibrary);
+    },
+
+    books: [
+        new Book('The Hobbit', 'J.R.R. Tolkien', 300, false),
+        new Book('The Lord of the Rings', 'Same Guy', 1178, true),
+        new Book('The Odyssey', 'Homer', 592),
+    ],
+};
+
+const library = [];
+demo.run();

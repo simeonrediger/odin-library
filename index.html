@@ -29,8 +29,8 @@
               inputmode='numeric' required
             >
 
-            <label for='new-book-read-status'>Read?</label>
-            <input type='checkbox' id='new-book-read-status' name='isRead'>
+            <label for='new-book-status'>Read?</label>
+            <input type='checkbox' id='new-book-status' name='isRead'>
 
             <button type='submit' class='primary-button'>Add book</button>
           </div>
@@ -39,10 +39,13 @@
     </dialog>
     <table>
       <thead>
-        <th scope='col'>Title</th>
-        <th scope='col'>Author</th>
-        <th scope='col'>Pages</th>
-        <th scope='col'>Read?</th>
+        <tr>
+          <th scope='col' class='title'>Title</th>
+          <th scope='col' class='author'>Author</th>
+          <th scope='col' class='page-count'>Pages</th>
+          <th scope='col' class='status'>Status</th>
+          <th scope='col' class='actions'>Actions</th>
+        </tr>
       </thead>
       <tbody id='book-table-data'></tbody>
     </table>
