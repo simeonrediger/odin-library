@@ -1,6 +1,5 @@
-- Center modal with `margin: auto` instead of flex layout
+- Add input validation to form
 - Refactor `Book.prototype.row` to `<template>`
-- Use `formData.has` instead of `formData.get` for checkbox value
 - Move `Book.prototype.toRow` to `display`
 - Use `event.target.closest()` instead of `event.target`
 - Reset modal inputs on close

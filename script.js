@@ -91,7 +91,7 @@ function onAddBook(event) {
         formData.get('title'),
         formData.get('author'),
         Number(formData.get('pageCount')),
-        Boolean(formData.get('isRead')),
+        formData.has('isRead'),
     );
 
     library.push(book);
