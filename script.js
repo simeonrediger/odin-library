@@ -96,6 +96,7 @@ function onAddBook(event) {
 
     library.push(book);
     display.addRow(book.toRow());
+    document.querySelector('#new-book-form').reset();
 }
 
 function onDeleteBook(event) {

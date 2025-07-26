@@ -1,7 +1,6 @@
 - Add input validation to form
 - Refactor `Book.prototype.row` to `<template>`
 - Move `Book.prototype.toRow` to `display`
-- Use `event.target.closest()` instead of `event.target`
-- Reset modal inputs on close
+- Add close button to modal
 - Consider splitting module up
 - Move event binding into `bindEvents`
