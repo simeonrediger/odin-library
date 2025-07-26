@@ -99,6 +99,30 @@ function onAddBook(event) {
     document.querySelector('#new-book-form').reset();
 }
 
+function onBookTableClick(event) {
+    const button = event.target.closest('button');
+
+    if (!button) {
+        return;
+    }
+
+    const toggleStatusButtonClicked = (
+        button.classList.contains('toggle-status-button')
+    );
+
+    const deleteButtonClicked = (
+        button.classList.contains('delete-button')
+    );
+
+    if (toggleStatusButtonClicked) {
+        onToggleStatus(event);
+    } else if (deleteButtonClicked) {
+        onDeleteBook(event);
+    } else {
+        return;
+    }
+}
+
 function onDeleteBook(event) {
     const bookId = getBookIdFromActionButton(event.target);
     const bookIndex = getBookIndexFromId(bookId);
@@ -133,35 +157,24 @@ function getStatusDisplayFormat(isRead) {
     return isRead ? 'Read' : 'Unread';
 }
 
-document.querySelector('#new-book-button').addEventListener('click', () => {
-    document.querySelector('#new-book-modal').showModal();
-});
-
-document.querySelector('#new-book-form').addEventListener('submit', onAddBook);
-
-document.querySelector('#book-table-data').addEventListener('click', event => {
-    const button = event.target.closest('button');
-
-    if (!button) {
-        return;
-    }
-
-    const toggleStatusButtonClicked = (
-        button.classList.contains('toggle-status-button')
+function bindEvents() {
+    document.querySelector('#new-book-button').addEventListener(
+        'click',
+        () => {
+            document.querySelector('#new-book-modal').showModal();
+        },
     );
 
-    const deleteButtonClicked = (
-        button.classList.contains('delete-button')
+    document.querySelector('#new-book-form').addEventListener(
+        'submit',
+        onAddBook,
     );
 
-    if (toggleStatusButtonClicked) {
-        onToggleStatus(event);
-    } else if (deleteButtonClicked) {
-        onDeleteBook(event);
-    } else {
-        return;
-    }
-});
+    document.querySelector('#book-table-data').addEventListener(
+        'click',
+        onBookTableClick,
+    );
+}
 
 const demo = {
 
@@ -182,4 +195,5 @@ const demo = {
 };
 
 const library = [];
+bindEvents();
 demo.run();

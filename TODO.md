@@ -3,4 +3,3 @@
 - Move `Book.prototype.toRow` to `display`
 - Add close button to modal
 - Consider splitting module up
-- Move event binding into `bindEvents`
