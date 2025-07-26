@@ -139,12 +139,18 @@ document.querySelector('#new-book-button').addEventListener('click', () => {
 document.querySelector('#new-book-form').addEventListener('submit', onAddBook);
 
 document.querySelector('#book-table-data').addEventListener('click', event => {
+    const button = event.target.closest('button');
+
+    if (!button) {
+        return;
+    }
+
     const toggleStatusButtonClicked = (
-        event.target.classList.contains('toggle-status-button')
+        button.classList.contains('toggle-status-button')
     );
 
     const deleteButtonClicked = (
-        event.target.classList.contains('delete-button')
+        button.classList.contains('delete-button')
     );
 
     if (toggleStatusButtonClicked) {
