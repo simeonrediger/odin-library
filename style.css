@@ -70,6 +70,16 @@ dialog::backdrop {
   border: 1px solid var(--white);
   border-radius: 0.5rem;
   padding: 2rem;
+  position: relative;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .grid-container {

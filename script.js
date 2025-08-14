@@ -98,6 +98,10 @@ function onAddBook(event) {
     display.addRow(book.toRow());
 }
 
+function onCancelBookEntry() {
+    document.querySelector('#new-book-modal').close();
+}
+
 function onBookTableClick(event) {
     const button = event.target.closest('button');
 
@@ -163,6 +167,11 @@ function bindEvents() {
             document.querySelector('#new-book-form').reset();
             document.querySelector('#new-book-modal').showModal();
         },
+    );
+
+    document.querySelector('#cancel-new-book-entry-button').addEventListener(
+        'click',
+        onCancelBookEntry,
     );
 
     document.querySelector('#new-book-form').addEventListener(
