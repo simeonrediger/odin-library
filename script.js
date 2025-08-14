@@ -96,7 +96,6 @@ function onAddBook(event) {
 
     library.push(book);
     display.addRow(book.toRow());
-    document.querySelector('#new-book-form').reset();
 }
 
 function onBookTableClick(event) {
@@ -161,6 +160,7 @@ function bindEvents() {
     document.querySelector('#new-book-button').addEventListener(
         'click',
         () => {
+            document.querySelector('#new-book-form').reset();
             document.querySelector('#new-book-modal').showModal();
         },
     );
