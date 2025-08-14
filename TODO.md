@@ -1,4 +1,3 @@
-- Add input validation to form
 - Refactor `Book.prototype.row` to `<template>`
 - Move `Book.prototype.toRow` to `display`
 - Add close button to modal
