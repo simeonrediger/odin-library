@@ -1,3 +1,3 @@
-- Refactor `Book.prototype.row` to `<template>`
 - Move `Book.prototype.toRow` to `display`
 - Consider splitting module up
+- Prevent cells from shrinking to content

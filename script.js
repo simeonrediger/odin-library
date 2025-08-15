@@ -11,43 +11,10 @@ function Book(title, author, pageCount, isRead = false) {
     this.isRead = isRead;
 }
 
-Book.prototype.row = function() {
-    const row = document.createElement('tr');
-
-    const titleCell = document.createElement('th');
-    titleCell.classList.add('title');
-    titleCell.scope = 'row';
-
-    const authorCell = document.createElement('td');
-    const pageCountCell = document.createElement('td');
-    const statusCell = document.createElement('td');
-    const actionsCell = document.createElement('td');
-    authorCell.classList.add('author');
-    pageCountCell.classList.add('page-count');
-    statusCell.classList.add('status');
-    actionsCell.classList.add('actions');
-
-    const toggleStatusButton = document.createElement('button');
-    toggleStatusButton.classList.add('action-button');
-    const deleteButton = toggleStatusButton.cloneNode(true);
-    toggleStatusButton.classList.add('toggle-status-button');
-    deleteButton.classList.add('delete-button');
-
-    let actionDescription = 'Toggle read status';
-    toggleStatusButton.title = actionDescription;
-    toggleStatusButton.ariaLabel = actionDescription;
-
-    actionDescription = 'Delete book';
-    deleteButton.title = actionDescription;
-    deleteButton.ariaLabel = actionDescription;
-
-    actionsCell.append(toggleStatusButton, deleteButton);
-    row.append(titleCell, authorCell, pageCountCell, statusCell, actionsCell);
-    return row;
-}();
-
 Book.prototype.toRow = function() {
-    const row = this.row.cloneNode(true);
+    const template = document.querySelector('#book-row-template');
+    const rowTemplate = template.content.querySelector('tr');
+    const row = rowTemplate.cloneNode(true);
     row.dataset.id = this.id;
     row.querySelector('.title').textContent = this.title;
     row.querySelector('.author').textContent = this.author;

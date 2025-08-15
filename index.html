@@ -58,5 +58,21 @@
       </thead>
       <tbody id='book-table-data'></tbody>
     </table>
+    <template id='book-row-template'>
+      <tr>
+        <th class='title' scope='row'></th>
+        <td class='author'></td>
+        <td class='page-count'></td>
+        <td class='status'></td>
+        <td class='actions'>
+          <button class='action-button toggle-status-button'
+            title='Toggle read status' aria-label='Toggle read status'
+          ></button>
+          <button class='action-button delete-button'
+            title='Delete book' aria-label='Delete book'
+          ></button>
+        </td>
+      </tr>
+    </template>
   </body>
 </html>
