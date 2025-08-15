@@ -11,21 +11,6 @@ function Book(title, author, pageCount, isRead = false) {
     this.isRead = isRead;
 }
 
-Book.prototype.toRow = function() {
-    const template = document.querySelector('#book-row-template');
-    const rowTemplate = template.content.querySelector('tr');
-    const row = rowTemplate.cloneNode(true);
-    row.dataset.id = this.id;
-    row.querySelector('.title').textContent = this.title;
-    row.querySelector('.author').textContent = this.author;
-    row.querySelector('.page-count').textContent = this.pageCount;
-    row.querySelector('.status').textContent = (
-        getStatusDisplayFormat(this.isRead)
-    );
-
-    return row;
-}
-
 Book.prototype.toggleStatus = function () {
     this.isRead = !this.isRead;
 }
@@ -33,7 +18,8 @@ Book.prototype.toggleStatus = function () {
 const display = {
     tbody: document.querySelector('#book-table-data'),
 
-    addRow(row) {
+    addRow(book) {
+        const row = this.formatBookAsRow(book);
         this.tbody.append(row);
     },
 
@@ -50,6 +36,21 @@ const display = {
     removeRow(rowIndex) {
         this.tbody.children[rowIndex].remove();
     },
+
+    formatBookAsRow(book) {
+        const template = document.querySelector('#book-row-template');
+        const rowTemplate = template.content.querySelector('tr');
+        const row = rowTemplate.cloneNode(true);
+        row.dataset.id = book.id;
+        row.querySelector('.title').textContent = book.title;
+        row.querySelector('.author').textContent = book.author;
+        row.querySelector('.page-count').textContent = book.pageCount;
+        row.querySelector('.status').textContent = (
+            getStatusDisplayFormat(book.isRead)
+        );
+
+        return row;
+    },
 };
 
 function onAddBook(event) {
@@ -62,7 +63,7 @@ function onAddBook(event) {
     );
 
     library.push(book);
-    display.addRow(book.toRow());
+    display.addRow(book);
 }
 
 function onCancelBookEntry() {
@@ -156,7 +157,7 @@ const demo = {
 
     addBookToLibrary(book) {
         library.push(book);
-        display.addRow(book.toRow());
+        display.addRow(book);
     },
 
     run() {
