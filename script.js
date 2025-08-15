@@ -33,8 +33,8 @@ const display = {
         );
     },
 
-    removeRow(rowIndex) {
-        this.tbody.children[rowIndex].remove();
+    removeRow(bookId) {
+        this.tbody.querySelector(`[data-id='${bookId}']`)?.remove();
     },
 
     formatBookAsRow(book) {
@@ -98,7 +98,7 @@ function onDeleteBook(event) {
     const bookId = getBookIdFromActionButton(event.target);
     const bookIndex = getBookIndexFromId(bookId);
     library.splice(bookIndex, 1);
-    display.removeRow(bookIndex);
+    display.removeRow(bookId);
 }
 
 function onToggleStatus(event) {
