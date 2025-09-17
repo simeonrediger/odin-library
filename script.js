@@ -1,14 +1,12 @@
-function Book(title, author, pageCount, isRead = false) {
+class Book {
 
-    if (!new.target) {
-        throw new Error('Constructor must be invoked with the "new" keyword.');
+    constructor(title, author, pageCount, isRead = false) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pageCount = pageCount;
+        this.isRead = isRead;
     }
-
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pageCount = pageCount;
-    this.isRead = isRead;
 }
 
 Book.prototype.toggleStatus = function () {
