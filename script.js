@@ -1,13 +1,32 @@
-class Library extends Array {
+class Library {
+    #books = [];
+
+    addBook(book) {
+        this.#books.push(book);
+    }
+
+    removeBookByIndex(index) {
+        this.#books.splice(index, 1);
+    }
 
     getBookIndexFromId(id) {
-        const bookIndex = this.findIndex(book => book.id === id);
+        const index = this.#books.findIndex(book => book.id === id);
 
-        if (bookIndex === -1) {
+        if (index === -1) {
             throw new Error(`Book ID not found: ${id}`);
         }
 
-        return bookIndex;
+        return index;
+    }
+
+    getBookById(id) {
+        const index = this.getBookIndexFromId(id);
+        return this.#books[index]
+    }
+
+    removeBookById(id) {
+        const index = this.getBookIndexFromId(id);
+        this.removeBookByIndex(index);
     }
 }
 
@@ -104,7 +123,7 @@ class Display {
             formData.has('isRead'),
         );
 
-        this.library.push(book);
+        this.library.addBook(book);
         this.addRow(book);
     }
 
@@ -138,15 +157,13 @@ class Display {
 
     #onDeleteBook(event) {
         const bookId = this.getBookIdFromActionButton(event.target);
-        const bookIndex = this.library.getBookIndexFromId(bookId);
-        this.library.splice(bookIndex, 1);
+        this.library.removeBookById(bookId);
         this.removeRow(bookId);
     }
 
     #onToggleStatus(event) {
         const bookId = this.getBookIdFromActionButton(event.target);
-        const bookIndex = this.library.getBookIndexFromId(bookId);
-        const book = this.library[bookIndex];
+        const book = this.library.getBookById(bookId);
         book.toggleStatus();
         this.toggleStatus(book);
     }
@@ -192,7 +209,7 @@ class Demo {
     }
 
     addBookToLibrary(book) {
-        this.library.push(book);
+        this.library.addBook(book);
         this.display.addRow(book);
     }
 
