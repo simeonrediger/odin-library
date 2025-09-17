@@ -1,3 +1,16 @@
+class Library extends Array {
+
+    getBookIndexFromId(id) {
+        const bookIndex = this.findIndex(book => book.id === id);
+
+        if (bookIndex === -1) {
+            throw new Error(`Book ID not found: ${id}`);
+        }
+
+        return bookIndex;
+    }
+}
+
 class Book {
 
     constructor(title, author, pageCount, isRead = false) {
@@ -165,16 +178,6 @@ class Display {
     }
 }
 
-function getBookIndexFromId(id) {
-    const bookIndex = library.findIndex(book => book.id === id);
-
-    if (bookIndex === -1) {
-        throw new Error(`Book ID not found: ${id}`);
-    }
-
-    return bookIndex;
-}
-
 const demo = {
 
     addBookToLibrary(book) {
@@ -193,9 +196,9 @@ const demo = {
     ],
 };
 
-// const library = [];
+const library = new Library();
 const display = new Display(
-    [],
+    library,
     '#new-book-modal',
     '#new-book-form',
     '#cancel-new-book-entry-button',
