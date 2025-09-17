@@ -178,23 +178,28 @@ class Display {
     }
 }
 
-const demo = {
+class Demo {
 
-    addBookToLibrary(book) {
-        library.push(book);
-        display.addRow(book);
-    },
-
-    run() {
-        this.books.forEach(this.addBookToLibrary);
-    },
-
-    books: [
+    books = [
         new Book('The Hobbit', 'J.R.R. Tolkien', 300, false),
         new Book('The Lord of the Rings', 'Same Guy', 1178, true),
         new Book('The Odyssey', 'Homer', 592),
-    ],
-};
+    ];
+
+    constructor(library, display) {
+        this.library = library;
+        this.display = display;
+    }
+
+    addBookToLibrary(book) {
+        this.library.push(book);
+        this.display.addRow(book);
+    }
+
+    run() {
+        this.books.forEach(this.addBookToLibrary, this);
+    }
+}
 
 const library = new Library();
 const display = new Display(
@@ -206,4 +211,4 @@ const display = new Display(
     '#book-table-data',
 );
 
-demo.run();
+new Demo(library, display).run();
