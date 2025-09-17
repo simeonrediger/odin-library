@@ -7,10 +7,10 @@ class Book {
         this.pageCount = pageCount;
         this.isRead = isRead;
     }
-}
 
-Book.prototype.toggleStatus = function () {
-    this.isRead = !this.isRead;
+    toggleStatus() {
+        this.isRead = !this.isRead;
+    }
 }
 
 const display = {
