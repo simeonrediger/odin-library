@@ -137,15 +137,15 @@ class Display {
     }
 
     #onDeleteBook(event) {
-        const bookId = getBookIdFromActionButton(event.target);
-        const bookIndex = getBookIndexFromId(bookId);
+        const bookId = this.getBookIdFromActionButton(event.target);
+        const bookIndex = this.library.getBookIndexFromId(bookId);
         this.library.splice(bookIndex, 1);
         this.removeRow(bookId);
     }
 
     #onToggleStatus(event) {
-        const bookId = getBookIdFromActionButton(event.target);
-        const bookIndex = getBookIndexFromId(bookId);
+        const bookId = this.getBookIdFromActionButton(event.target);
+        const bookIndex = this.library.getBookIndexFromId(bookId);
         const book = this.library[bookIndex];
         book.toggleStatus();
         this.toggleStatus(book);
