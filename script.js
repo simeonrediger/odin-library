@@ -163,17 +163,17 @@ class Display {
 
         this.cancelNewBookEntryButton.addEventListener(
             'click',
-            this.#onCancelBookEntry,
+            this.#onCancelBookEntry.bind(this),
         );
 
         this.newBookForm.addEventListener(
             'submit',
-            this.#onAddBook,
+            this.#onAddBook.bind(this),
         );
 
         this.tbody.addEventListener(
             'click',
-            this.#onBookTableClick,
+            this.#onBookTableClick.bind(this),
         );
     }
 }
